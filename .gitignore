@@ -7,3 +7,5 @@ next-env.d.ts
 *.tsbuildinfo
 coverage
 !prisma/demo.db
+.vercel
+.env*
