@@ -1,0 +1,21 @@
+:root{--bg:#f7f7f5;--card:#fff;--fg:#1c1c1c;--muted:#6b6b6b;--line:#e4e4e0;--accent:#1f5eff;--ok:#1a7f4b;--warn:#b25e00;--bad:#c0262d}
+*{box-sizing:border-box}body{margin:0;font:14px/1.5 system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--fg)}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+nav{display:flex;gap:18px;align-items:center;padding:12px 24px;background:#111;color:#fff;flex-wrap:wrap}nav a{color:#ddd}nav b{margin-right:12px}
+main{max-width:1150px;margin:0 auto;padding:24px 16px}
+h1{font-size:22px;margin:0 0 16px}h2{font-size:16px;margin:0 0 10px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin-bottom:16px}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+.two{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(340px,1fr))}
+.stat .v{font-size:26px;font-weight:600}.stat .l{color:var(--muted);font-size:12px}
+table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top}th{font-size:12px;color:var(--muted);font-weight:500}
+.tbl{overflow-x:auto}
+input,select,textarea{font:inherit;padding:7px 9px;border:1px solid var(--line);border-radius:6px;width:100%;background:#fff}
+label{display:block;font-size:12px;color:var(--muted);margin-bottom:10px}
+button{font:inherit;padding:6px 12px;border-radius:6px;border:1px solid var(--accent);background:var(--accent);color:#fff;cursor:pointer}
+button.ghost{background:#fff;color:var(--accent)}button.danger{border-color:var(--bad);background:#fff;color:var(--bad)}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}form.inline{display:inline}
+.tag{display:inline-block;background:#eef2ff;color:#2a3f8f;border-radius:10px;padding:1px 8px;font-size:12px;margin:2px 3px 2px 0}
+.pill{font-size:11px;padding:1px 7px;border-radius:9px;background:#eee}.pill.OPEN,.pill.PENDING{background:#fff3e0;color:var(--warn)}.pill.ACCEPTED,.pill.COMPLETED,.pill.SCHEDULED{background:#e6f5ec;color:var(--ok)}.pill.DECLINED,.pill.CANCELLED,.pill.stale{background:#fdecec;color:var(--bad)}
+.muted{color:var(--muted)}.err{background:#fdecec;color:var(--bad);padding:10px;border-radius:8px;margin-bottom:12px}.ok{background:#e6f5ec;color:var(--ok);padding:10px;border-radius:8px;margin-bottom:12px}
+.bar{height:8px;background:var(--accent);border-radius:4px}.score{font-weight:600;color:var(--accent)}

@@ -1,0 +1,82 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// SQLite has no scalar lists, so tag fields hold a normalized comma-separated
+// string (see src/lib/tags.ts).
+
+model Mentor {
+  id             String         @id @default(cuid())
+  name           String
+  email          String         @unique
+  title          String?
+  company        String?
+  linkedinUrl    String?
+  bio            String?
+  expertise      String         @default("")
+  active         Boolean        @default(true)
+  source         String         @default("MANUAL") // MANUAL | SLACK | IMPORT
+  lastVerifiedAt DateTime       @default(now())
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  sessions       Session[]
+  requests       MentorRequest[]
+  flags          FreshnessFlag[]
+}
+
+model Startup {
+  id          String          @id @default(cuid())
+  name        String          @unique
+  founderName String?
+  email       String?
+  sector      String?
+  stage       String?
+  needs       String          @default("")
+  createdAt   DateTime        @default(now())
+  requests    MentorRequest[]
+}
+
+model Session {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  topics      String   @default("")
+  scheduledAt DateTime
+  status      String   @default("SCHEDULED") // SCHEDULED | COMPLETED | CANCELLED
+  mentorId    String?
+  mentor      Mentor?  @relation(fields: [mentorId], references: [id], onDelete: SetNull)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model MentorRequest {
+  id          String    @id @default(cuid())
+  startupId   String
+  startup     Startup   @relation(fields: [startupId], references: [id], onDelete: Cascade)
+  mentorId    String
+  mentor      Mentor    @relation(fields: [mentorId], references: [id], onDelete: Cascade)
+  topic       String
+  message     String?
+  status      String    @default("PENDING") // PENDING | ACCEPTED | DECLINED | COMPLETED
+  matchScore  Float?
+  respondedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model FreshnessFlag {
+  id         String    @id @default(cuid())
+  mentorId   String
+  mentor     Mentor    @relation(fields: [mentorId], references: [id], onDelete: Cascade)
+  reason     String // JOB_CHANGE | STALE | BOUNCED_EMAIL | OTHER
+  source     String // MANUAL | SLACK | WEBHOOK | SYSTEM
+  details    String?
+  status     String    @default("OPEN") // OPEN | RESOLVED
+  createdAt  DateTime  @default(now())
+  resolvedAt DateTime?
+}
